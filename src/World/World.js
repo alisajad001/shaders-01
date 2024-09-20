@@ -1,6 +1,7 @@
 import * as THREE from 'three';
-
 import Experience from '../Experience/Experience';
+import vertexShader from '../Shaders/vertex.glsl';
+import fragmentShader from '../Shaders/fragment.glsl';
 
 export default class World {
   constructor() {
@@ -10,7 +11,10 @@ export default class World {
     // Test Cube
     const testCube = new THREE.Mesh(
       new THREE.BoxGeometry(1, 1, 1),
-      new THREE.MeshNormalMaterial()
+      new THREE.RawShaderMaterial({
+        vertexShader: vertexShader,
+        fragmentShader: fragmentShader,
+      })
     );
     this.scene.add(testCube);
   }

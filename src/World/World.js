@@ -8,14 +8,24 @@ export default class World {
     this.experience = new Experience();
     this.scene = this.experience.scene;
 
-    // Test Cube
-    const testCube = new THREE.Mesh(
+    // Cube
+    this.testCube = new THREE.Mesh(
       new THREE.BoxGeometry(1, 1, 1),
       new THREE.RawShaderMaterial({
         vertexShader: vertexShader,
         fragmentShader: fragmentShader,
+        side: THREE.DoubleSide,
+
+        uniforms: {
+          uTime: { value: 0 },
+        },
       })
     );
-    this.scene.add(testCube);
+    this.scene.add(this.testCube);
+  }
+
+  update() {
+    this.testCube.material.uniforms.uTime.value =
+      this.experience.time.elapsed * 0.001;
   }
 }
